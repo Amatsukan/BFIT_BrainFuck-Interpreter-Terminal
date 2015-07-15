@@ -1,5 +1,5 @@
 CC=gcc
-libs= -lreadline
+libs= -lreadline -lncurses
 flags= -pipe -O3
 deps=
 
