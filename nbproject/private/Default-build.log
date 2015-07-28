@@ -1,2 +1,0 @@
-gcc    -c -o basic_shell.o basic_shell.c
-gcc basic_shell.o -o shells -lreadline -lncurses
