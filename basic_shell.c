@@ -12,6 +12,7 @@
 #define PWD getcwd( NULL, 1024 )
 
 int cont = 1;
+int DEBUG = false;
 
 struct BUFFER
 {
@@ -29,6 +30,8 @@ init(){
     buf.pos = MAX/2;
     buf.pointer  = &(buf.mem[buf.pos]);
     read_history( ".hys" );
+    int i;
+    for(i=MIN; i<=MAX; i++) buf.mem[i] = '0';
 }
 
 void left();
@@ -37,6 +40,8 @@ void print();
 void set();
 void add();
 void sub();
+void loop();
+int execR(char *);
 
 
 void quit();
@@ -106,19 +111,26 @@ void print(){
 }
 
 void set(){
-    (buf.pointer)[0] = getchar();
+    char set = getchar();
+    (buf.pointer)[0] = (set == '\0' || set == 13 || set == 10) ? getchar() : set ;
 }
 void sub(){
     (*(buf.pointer))--;
+    if(DEBUG){
+        print("sub\n");
+    }
 }
 void add(){
     (*(buf.pointer))++;
+    if(DEBUG){
+        print("add\n");
+    }
 }
-void loopInit(){
-    (*(buf.pointer))++;
-}
-void loopFinsh(){
-    (*(buf.pointer))++;
+void loop(char * inner){
+    char statement = *(buf.pointer);
+    printf("\n%c, inner:%c\n",statement, inner);
+    while(statement != '0')
+        execR(inner);
 }
 
 void quit(){
@@ -186,29 +198,42 @@ int command(const char * comm/*, const char * args*/){
 
 int execR(char * comm){
     
+    int innerChars = 0;
+    
     while(comm[0]!= '\0'){
         
         if(comm[0] == '>'){
             right();
-        }else
-        if(comm[0] == '<'){
+        }else if(comm[0] == '<')
+        {
             left();
-        }else
-        if(comm[0] == '.'){
+        }else if(comm[0] == '.')
+        {
             print();
-        }else
-        if(comm[0] == ','){
+        }else if(comm[0] == ',')
+        {
             set();
-        }else
-        if(comm[0] == '+'){
+        }else if(comm[0] == '+')
+        {
             add();
-        }else
-        if(comm[0] == '-'){
+        }else if(comm[0] == '-')
+        {
             sub();
-        }
+        }else if(comm[0]=='[')
+        {
+            char * prt = comm;
+            while(prt[++innerChars]!=']');
+            
+            char subbuff[innerChars];
+            memcpy( subbuff, &comm[1], innerChars);
+            subbuff[innerChars-1] = '\0';
+            loop(subbuff);
+            innerChars = 0;
+            
+        }else if(comm[0]==']') continue;
         
         comm++;
     }
-    
+    comm++;
     return 0;
 }
