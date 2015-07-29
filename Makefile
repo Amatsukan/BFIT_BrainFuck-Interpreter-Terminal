@@ -7,7 +7,7 @@ deps=
 	$(CC) -c -o $@ $< $(flags)
 
 all: basic_shell.o
-	$(CC) basic_shell.o -o shells $(libs)
+	$(CC) basic_shell.o -o BFIT $(libs)
 
 clean: 
-	rm -f *.o shells
+	rm -f *.o BFIT

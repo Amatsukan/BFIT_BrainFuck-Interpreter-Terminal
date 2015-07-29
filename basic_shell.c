@@ -8,11 +8,10 @@
 #define MAX 2000
 #define MIN 0
 
-#define progName "BrainFuck"
 #define PWD getcwd( NULL, 1024 )
 
 int cont = 1;
-int DEBUG = false;
+int DEBUG = 0;
 
 struct BUFFER
 {
@@ -46,41 +45,32 @@ int execR(char *);
 
 void quit();
 void sigCatcher(int);
-char* get_comm(const char *);
-char* get_arg(const char *);
-int command(const char */* const char */);
+char* get_comm(char *);
+char* get_arg(char *);
+int command(char */* const char */);
 
-int main(char ** args)
+int main(int argv, char ** args)
 {
     init();
     int s;
     for (s=1; s<35; s++){
         signal(s, sigCatcher);
     }
-
+    
     char* input, shell_prompt[100];
 
-    // Configure readline to auto-complete paths when the tab key is hit.
     rl_bind_key('\t', rl_complete);
 
     while(cont) {
-        // Create prompt string from user name and current working directory.
-        snprintf( shell_prompt, sizeof( shell_prompt ), "%s:%s $ ", getenv( "USER" ), progName );
+        snprintf( shell_prompt, sizeof( shell_prompt ), "(%s:[%s])~>{ ", getenv( "USER" ), args[0]+2 );
 
-        // Display prompt and read input (NB: input must be freed after use)...
         input = readline( shell_prompt );
 
-        // Check for EOF.
         if ( !input )
             break;
 
-
-//        command(get_comm(input), get_arg(input));
-        if( command( get_comm( input ) ) ){
-            printf("Invalid Command\n");
-        }
-
-        // Add input to history.
+        command(strcat(get_comm(input), get_arg(input)));
+        
         add_history( input );
 
         free( input );
@@ -116,25 +106,19 @@ void set(){
 }
 void sub(){
     (*(buf.pointer))--;
-    if(DEBUG){
-        print("sub\n");
-    }
 }
 void add(){
     (*(buf.pointer))++;
-    if(DEBUG){
-        print("add\n");
-    }
 }
 void loop(char * inner){
-    char statement = *(buf.pointer);
-    printf("\n%c, inner:%c\n",statement, inner);
-    while(statement != '0')
+    char * statement = &(buf.pointer[0]);
+    while((int)*statement != 48){
         execR(inner);
+    }
 }
 
 void quit(){
-    printf("Bye!!");
+    printf("\nBye!!\n");
     exit( EXIT_SUCCESS );
 }
 
@@ -150,7 +134,7 @@ void sigCatcher(int sinal)
     }
 }
 
-char* get_comm(const char * line){
+char* get_comm(char * line){
     char* comm;
 
     int i;
@@ -165,7 +149,7 @@ char* get_comm(const char * line){
     return comm;
 }
 
-char* get_arg(const char * line){
+char* get_arg(char * line){
     char* comm;
 
     int i;
@@ -184,7 +168,7 @@ char* get_arg(const char * line){
     return comm;
 }
 
-int command(const char * comm/*, const char * args*/){
+int command(char * comm/*, const char * args*/){
     
     if( !strcmp( comm, "exit" ) ){
         quit();
@@ -230,7 +214,7 @@ int execR(char * comm){
             loop(subbuff);
             innerChars = 0;
             
-        }else if(comm[0]==']') continue;
+        };
         
         comm++;
     }
