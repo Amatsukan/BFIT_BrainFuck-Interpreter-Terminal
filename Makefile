@@ -1,6 +1,6 @@
 CC=gcc
 libs= -lreadline
-flags= -pipe -O3
+flags= -pipe -O1 -O2 -Ofast -O3  -fomit-frame-pointer 
 deps=
 
 %.o: %.c $(libs)
