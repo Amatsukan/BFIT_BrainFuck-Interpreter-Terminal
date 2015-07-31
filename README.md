@@ -17,21 +17,21 @@ A principio o software possui uma única dependência, uma lib chamada readline.
 ## Help Page
 
 >"B.F.I.T. = BrainFuck Interpreter Terminal
->    WARNING: When you use brainfuck operators, this terminal discard all characters non BF symbols
->    Terminal commands:    print: switch print mode to int or char
->        debug: turn debug mode ON/OFF
->        help: show those informations
->    BrainFuck Operators:
->        '>' = increment the data pointer (to point to the next cell to the right).
->        '<' = decrement the data pointer (to point to the next cell to the left).
->        '+' = increment (increase by one) the byte at the data pointer.
->        '-' = decrement (decrease by one) the byte at the data pointer.
->        '.' = output the byte at the data pointer.
->        ',' = accept one byte of input, storing its value in the byte at the data pointer.
->        '[' = if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command.
->        ']' = if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command.
->
->    BFIT was created by: Amatsukan
+>-    WARNING: When you use brainfuck operators, this terminal discard all characters non BF symbols
+>-    Terminal commands:    print: switch print mode to int or char
+>--        debug: turn debug mode ON/OFF
+>--       help: show those informations
+>-    BrainFuck Operators:
+>--        '>' = increment the data pointer (to point to the next cell to the right).
+>--        '<' = decrement the data pointer (to point to the next cell to the left).
+>--        '+' = increment (increase by one) the byte at the data pointer.
+>--        '-' = decrement (decrease by one) the byte at the data pointer.
+>--        '.' = output the byte at the data pointer.
+>--        ',' = accept one byte of input, storing its value in the byte at the data pointer.
+>--        '[' = if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command.
+>--        ']' = if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command.
+>-
+>----       BFIT was created by: Amatsukan
 
 ## License
     /** ----------------------------------------------------------------------------
