@@ -1,13 +1,14 @@
 CC=gcc
 libs= -lreadline
-flags= -pipe -O1 -O2 -Ofast -O3  -fomit-frame-pointer 
+flags=
 deps=
+bindir=bin
 
-%.o: %.c $(libs)
-	$(CC) -c -o $@ $< $(flags)
+%.o: %.c
+	$(CC) $(flags) -c -o $@ $<
 
-all: basic_shell.o
-	$(CC) basic_shell.o -o BFIT $(libs)
+all: shell.o machine.o utils.o
+	$(CC) $(flags) shell.o -o bin/BFIT $(libs)
 
-clean: 
-	rm -f *.o BFIT
+clean:
+	rm -f *.o $(bindir)/BFIT
