@@ -14,19 +14,29 @@ void Help(){
     printf("Terminal commands:\n\tprint: switch print mode to int or char\n");
     printf("\tdebug: turn debug mode ON/OFF\n");
     printf("\thelp: show those informations\n");
+    printf("\textend: turn B.F.I.T. in B.F++.I.T.\n");
     printf("BrainFuck Operators:\n");
     printf("    '>' = increment the data pointer (to point to the next cell to the right).\n");
     printf("    '<' = decrement the data pointer (to point to the next cell to the left).\n");
     printf("    '+' = increment (increase by one) the byte at the data pointer.\n");
     printf("    '-' = decrement (decrease by one) the byte at the data pointer.\n");
-    printf("    '.' = output the byte at the data pointer.\n");
-    printf("    ',' = accept one byte of input, storing its value in the byte at the data pointer.\n");
+    printf("    '.' = output the byte at the data pointer (print as char).\n");
+    printf("    ',' = accept one byte of input, storing its value in the byte at the data pointer (set as char).\n");
     printf("    '[' = if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command.\n");
     printf("    ']' = if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command.\n");
+    printf("BrainFuck ++ Operators:\n");
+    printf("    ':' = output the byte at the data pointer (print as integer).\n");
+    printf("    ';' = accept one byte of input, storing its value in the byte at the data pointer (set as integer).\n");
+    printf("    '#?'= swap the tape.\n");
+    printf("        if ? if u or U, the up tape turns the current tape\n");
+    printf("        if ? if d or D, the down tape turns the current tape\n");
+    printf("        BF++ haves 5 tapes.\n");
+    printf("    '0' = turn all slots of the actual tape to 0\n");
+    printf("    'Z' or 'z' = turn all slots of all tapes to 0\n");
     printf("\n\nBFIT was created by: Amatsukan\n");
     printf("/*\n\n* ----------------------------------------------------------------------------\n");
     printf("* \"THE BEER-WARE LICENSE\" (Revision 42):\n");
-    printf("* <phk@FreeBSD.ORG> wrote this file. As long as you retain this notice you\n");
+    printf("* <luiz.ferreira@khomp.com> wrote this file. As long as you retain this notice you\n");
     printf("* can do whatever you want with this stuff. If we meet some day, and you think\n");
     printf("* this stuff is worth it, you can buy me a beer in return Luiz Carlos{Amatsukan}\n");
     printf("* ----------------------------------------------------------------------------*/\n\n");
@@ -38,6 +48,6 @@ void Help(){
 
 void DEBUGr(const char * msg){
     if(DEBUG){
-        printf("\n%s\n",msg);
+        printf("\n%s",msg);
     }
 }

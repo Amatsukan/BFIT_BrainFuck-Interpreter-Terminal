@@ -6,9 +6,6 @@
 #define KRED "\001\x1B[31m\002"
 
 
-int EXTENDED = 0; //if 1, turn B.F.I.T in B.F++.I.T
-
-
 int execR(char *);
 
 
@@ -36,11 +33,9 @@ int main(int argv, char ** args)
     while(42) {
 
         if(EXTENDED)
-            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s(%s:[%s])~>{%s ",KRED, getenv( "USER" ), args[0]+2, KNRM );
+            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s(%s:[%s])~>{%s ",KRED, getenv( "USER" ), "B.F++.I.T.", KNRM );
         else
-            snprintf( shell_prompt, sizeof( shell_prompt ), "\n(%s:[%s])~>{ ", getenv( "USER" ), args[0]+2 );
-
-        zero();
+            snprintf( shell_prompt, sizeof( shell_prompt ), "\n(%s:[%s])~>{ ", getenv( "USER" ), "B.F.I.T." );
 
         input = readline( shell_prompt );
 
