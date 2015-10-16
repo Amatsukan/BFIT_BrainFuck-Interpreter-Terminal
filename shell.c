@@ -2,8 +2,6 @@
 
 #include "machine.c"
 
-#define KNRM "\001\x1B[0m\002"
-#define KRED "\001\x1B[31m\002"
 
 
 int execR(char *);
@@ -33,9 +31,9 @@ int main(int argv, char ** args)
     while(42) {
 
         if(EXTENDED)
-            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s(%s:[%s])~>{%s ",KRED, getenv( "USER" ), "B.F++.I.T.", KNRM );
+            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s%s(%s:[%s])~>{%s ",BOLD,GRN, getenv( "USER" ), "B.F++.I.T.", NRM );
         else
-            snprintf( shell_prompt, sizeof( shell_prompt ), "\n(%s:[%s])~>{ ", getenv( "USER" ), "B.F.I.T." );
+            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s(%s:[%s])~>{ %s",BOLD, getenv( "USER" ), "B.F.I.T.",NRM );
 
         input = readline( shell_prompt );
 
@@ -48,6 +46,8 @@ int main(int argv, char ** args)
         strcat(comm ,get_args(input));
 
         command(comm);
+
+        free(comm);
 
         add_history( input );
 

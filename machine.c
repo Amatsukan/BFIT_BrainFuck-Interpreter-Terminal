@@ -121,6 +121,28 @@ void zero(){
     DEBUGr(dbg);
 }
 
+void jump(int mod){
+    if(buf[aTape].pos == MIN && mod < 0){
+        buf[aTape].pos = MAX-mod+1;
+        buf[aTape].pointer = &(buf[aTape].mem[MAX-mod+1]);
+    } else if(buf[aTape].pos == MAX && mod > 0){
+        buf[aTape].pos = MIN+mod-1;
+        buf[aTape].pointer = &(buf[aTape].mem[MIN+mod-1]);
+    }else{
+        buf[aTape].pos += mod;
+        (buf[aTape].pointer) += mod;
+    }
+
+}
+
+void instSet(int mod, int value){
+
+}
+
+void instPrint(int mod){
+
+}
+
 enum swp{
     up, down
 };
@@ -210,6 +232,10 @@ int execR(char * comm){
                 }
                 else if(comm[0] == 'd' || comm[1] == 'D'){
                     swap(down);
+                }else{
+                    char * prt_msg = (char *)calloc(21, sizeof(char));
+                    sprintf(prt_msg,"Invalid syntax = %s\n", --comm);
+                    ERRORr(prt_msg);
                 }
 
             }else if(comm[0] == '0')
@@ -220,6 +246,28 @@ int execR(char * comm){
                 int i;
                 for (i = 0; i < nTapes; ++i)
                     zeroT(i);
+            }else if (comm[0] == '(')
+            {
+                /* instant set */
+            }
+            else if (comm[0] == '{')
+            {
+                /* Instant print */
+            }else if (comm[0] == 'J' || comm[0] == 'j')
+            {
+                comm++;
+                if (comm[0] == 'n' || comm[0] == 'N') //negative jump
+                {
+                    jump((-1) * (int)comm[1]);
+                }else if(comm[0] == 'p' || comm[0] == 'P') //positive jump
+                {
+                    jump((int)comm[1]);
+                }
+            }else if (comm[0] == 'S' )
+            {
+                char * prt_msg = (char*) calloc(19, sizeof(char));
+
+                printf("actual slot: %d\n", buf[aTape].pos);
             }
         }
 

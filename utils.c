@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "colors.h"
 
 #define uint unsigned int
 #define t_uint(x) (unsigned int)(x)
@@ -28,11 +29,15 @@ void Help(){
     printf("    ':' = output the byte at the data pointer (print as integer).\n");
     printf("    ';' = accept one byte of input, storing its value in the byte at the data pointer (set as integer).\n");
     printf("    '#?'= swap the tape.\n");
-    printf("        if ? if u or U, the up tape turns the current tape\n");
-    printf("        if ? if d or D, the down tape turns the current tape\n");
+    printf("        case ? is u or U, the up tape turns the current tape\n");
+    printf("        case ? is d or D, the down tape turns the current tape\n");
     printf("        BF++ haves 5 tapes.\n");
     printf("    '0' = turn all slots of the actual tape to 0\n");
     printf("    'Z' or 'z' = turn all slots of all tapes to 0\n");
+    printf("    'Jxy' or 'jxy' = jump to an specific slot in the actual tape\n");
+    printf("        case x is p or P, actualstot <- actualstot + y\n");
+    printf("        case x is n or N, actualstot <- actualstot - y\n");
+    printf("             y shall be a single character , its value is the numeric value it converted to integer\n");
     printf("\n\nBFIT was created by: Amatsukan\n");
     printf("/*\n\n* ----------------------------------------------------------------------------\n");
     printf("* \"THE BEER-WARE LICENSE\" (Revision 42):\n");
@@ -48,6 +53,20 @@ void Help(){
 
 void DEBUGr(const char * msg){
     if(DEBUG){
-        printf("\n%s",msg);
+        char buff[100];
+        printf("%s\n", buff);
     }
 }
+
+void ERRORr(const char * msg){
+    printf("\n %s %s %s", RED, msg, NRM);
+}
+
+void WARNNINGr(const char * msg){
+    printf("\n %s %s %s", YEL, msg, NRM);
+}
+
+void msg(const char * msg){
+    printf("\n %s %s", msg, NRM);
+}
+
