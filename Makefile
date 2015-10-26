@@ -7,13 +7,13 @@ bindir=bin
 %.o: %.c
 	$(CC) $(flags) -c -o $@ $<
 
-all: shell.o machine.o utils.o colors.h
-	mkdir -p bin
-	$(CC) $(flags) shell.o -o bin/BFIT $(libs)
+all:
+	make clean
+	make os
 
 clean:
 	rm -f *.o $(bindir)/BFIT
 
-cleanup:
-	make clean
-	make
+os:	shell.o machine.o utils.o colors.h
+	mkdir -p bin
+	$(CC) $(flags) shell.o -o bin/BFIT $(libs)

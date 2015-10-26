@@ -31,11 +31,13 @@ int main(int argv, char ** args)
     while(42) {
 
         if(EXTENDED)
-            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s%s(%s:[%s])~>{%s ",BOLD,GRN, getenv( "USER" ), "B.F++.I.T.", NRM );
+            snprintf( shell_prompt, sizeof( shell_prompt ), "%s\n%s%s(%s:[%s])~>{%s %s%s",BLK_BG,BOLD,GRN, getenv( "USER" ), "B.F++.I.T.", NRM,WHT_BG,BLK  );
         else
-            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s(%s:[%s])~>{ %s",BOLD, getenv( "USER" ), "B.F.I.T.",NRM );
+            snprintf( shell_prompt, sizeof( shell_prompt ), "%s\n%s%s(%s:[%s])~>{%s %s%s ",BLK_BG,BOLD,WHT, getenv( "USER" ), "B.F.I.T.", NRM,WHT_BG,BLK );
 
         input = readline( shell_prompt );
+
+        printf("%s",BLK_BG);
 
         if ( !input )
             break;

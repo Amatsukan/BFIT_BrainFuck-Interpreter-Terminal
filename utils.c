@@ -53,13 +53,12 @@ void Help(){
 
 void DEBUGr(const char * msg){
     if(DEBUG){
-        char buff[100];
-        printf("%s\n", buff);
+        printf("%s%s%s\n", CYN, msg, NRM);
     }
 }
 
 void ERRORr(const char * msg){
-    printf("\n %s %s %s", RED, msg, NRM);
+    printf("\n %s%s%s%s", BOLD ,RED, msg, NRM);
 }
 
 void WARNNINGr(const char * msg){
