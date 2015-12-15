@@ -1,11 +1,12 @@
-CC=gcc
+CC=clang
+DCC=gcc
 libs= -lreadline
-flags=
+flags= -std=c99
 deps=
 bindir=bin
 
 %.o: %.c
-	$(CC) $(flags) -c -o $@ $<
+	$(CC) -g -c -o $@ $<  $(flags)
 
 all:
 	make clean
@@ -14,6 +15,14 @@ all:
 clean:
 	rm -f *.o $(bindir)/BFIT
 
-os:	shell.o machine.o utils.o colors.h
+debug:
+	make clean
+	make debugBuild
+
+debugBuild: shell.o machine.o utils.o colors.h definitions.h
 	mkdir -p bin
-	$(CC) $(flags) shell.o -o bin/BFIT $(libs)
+	$(DCC) -g3 -gdb machine.o -o bin/BFIT $(libs) $(flags)
+
+os:	shell.o machine.o utils.o colors.h definitions.h
+	mkdir -p bin
+	$(CC) shell.o -o bin/BFIT $(libs) $(flags)

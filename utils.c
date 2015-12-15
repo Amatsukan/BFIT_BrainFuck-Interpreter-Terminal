@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "colors.h"
 
-#define uint unsigned int
 #define t_uint(x) (unsigned int)(x)
 
 #define PWD getcwd( NULL, 1024 )

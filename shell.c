@@ -12,7 +12,7 @@ void sigCatcher(int);
 void command(char *);
 const char* get_comm(char * line);
 const char* get_args(char * line);
-
+void print(int printChar);
 void Help();
 
 
@@ -31,13 +31,11 @@ int main(int argv, char ** args)
     while(42) {
 
         if(EXTENDED)
-            snprintf( shell_prompt, sizeof( shell_prompt ), "%s\n%s%s(%s:[%s])~>{%s %s%s",BLK_BG,BOLD,GRN, getenv( "USER" ), "B.F++.I.T.", NRM,WHT_BG,BLK  );
+            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s%s(%s:[%s])~>{%s ",BOLD,GRN, getenv( "USER" ), "B.F++.I.T.", BLK  );
         else
-            snprintf( shell_prompt, sizeof( shell_prompt ), "%s\n%s%s(%s:[%s])~>{%s %s%s ",BLK_BG,BOLD,WHT, getenv( "USER" ), "B.F.I.T.", NRM,WHT_BG,BLK );
+            snprintf( shell_prompt, sizeof( shell_prompt ), "\n%s%s(%s:[%s])~>{%s %s ",BOLD,WHT, getenv( "USER" ), "B.F.I.T.", NRM, WHT );
 
         input = readline( shell_prompt );
-
-        printf("%s",BLK_BG);
 
         if ( !input )
             break;
@@ -73,14 +71,12 @@ void sigCatcher(int sinal)
 
 const char* get_comm(char * line){
     char* comm;
-
     int i;
     for(i=0; line[i] != 32 && line[i] != '\0' ; i++ );
 
     comm = ( char* ) malloc( sizeof( char )*++i );
 
-    int j;
-    for(j=0; j<i; j++ ){
+    for(int j=0; j<i; j++ ){
         comm[j]=line[j];
     }
     return comm;
@@ -88,15 +84,15 @@ const char* get_comm(char * line){
 
 const char* get_args(char * line){
     char* comm;
-
     int i;
     for(i=0; line[i] != 32 && line[i] != '\0' ; i++ );
     int j;
-    for(j=i; line[j] != '\0' ; j++ );
+    for(int j=i; line[j] != '\0' ; j++ );
 
     if(line[i]=='\0') return "";
 
     comm = ( char* ) malloc( sizeof( char )*( (++j)-(++i) ) );
+
     int m;
     for(m=0; line[i]!='\0'; i++, m++){
         comm[m]=line[i];
@@ -118,13 +114,13 @@ void command(char * comm/*, const char * args*/){
 
     if( !strcmp( comm, "debug" ) ){
         DEBUG = !(DEBUG);
-        printf("\nDEBUG MODE: %s\n",("OFF\0ON")+(4*DEBUG));
+        printf("\nDEBUG MODE: %s\n",&("OFF\0ON")[(4*DEBUG)]);
         stahp
     }
 
     if( !strcmp( comm, "extend" ) ){
         EXTENDED = !(EXTENDED);
-        printf("\nextended brainfuck: %s\n",("OFF\0ON")+(4*EXTENDED));
+        printf("\nextended brainfuck: %s\n",&("OFF\0ON")[(4*EXTENDED)]);
         stahp
     }
 
